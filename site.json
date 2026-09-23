@@ -6,24 +6,27 @@
   },
   "nav": [
     {
-      "label": "People",
-      "page": "people.html"
-    },
-    {
       "label": "Portfolio",
       "page": "portfolio.html"
     },
     {
-      "label": "Ecosystem",
-      "page": "ecosystem.html"
+      "label": "Resources",
+      "page": "resources.html"
     },
     {
-      "label": "News",
-      "page": "news.html"
+      "label": "Careers",
+      "page": "careers.html"
     },
     {
-      "label": "Accelerator",
-      "href": "https://iedo.ucdavis.edu/aggie-venture-accelerator"
+      "label": "About",
+      "children": [
+        { "label": "About", "page": "about.html" },
+        { "label": "Team", "page": "people.html" },
+        { "label": "Approach", "page": "what-we-do.html" },
+        { "label": "Ecosystem", "page": "ecosystem.html" },
+        { "label": "Accelerator", "href": "https://iedo.ucdavis.edu/aggie-venture-accelerator" },
+        { "label": "Contact", "page": "contact.html" }
+      ]
     }
   ],
   "hero": {
@@ -35,7 +38,7 @@
     "sub": "The March Group backs exponential technology platforms for human and planetary health, and for a new food paradigm."
   },
   "sections": {
-    "themes": "Where we invest",
+    "themes": "Areas of focus",
     "ecosystem": "A world-class ecosystem, anchored in the UC system.",
     "network": "Our strategic global network",
     "portfolio": "Portfolio",
@@ -48,7 +51,7 @@
     "ecosystemPage": "Ecosystem",
     "newsPage": "In the loop",
     "contactPage": "Get in touch",
-    "numbers": "The University of California system, by the numbers.",
+    "numbers": "The University of California system, by the numbers",
     "ecosystemAnchors": "Anchor institutions",
     "ecosystemPartners": "Partners and collaborators",
     "mailing": "Join our mailing list",
@@ -57,7 +60,28 @@
     "newsLink": "All news",
     "closeButton": "Contact us",
     "teamLink": "Meet the team",
-    "contactNav": "Contact"
+    "contactNav": "Contact",
+    "whatWeDoPage": "What We Do",
+    "whatWeDoIntro": "We back the theses others haven't named yet -- mapping emerging categories at the intersection of food and health, then backing the founders building inside them.",
+    "aboutPage": "About",
+    "aboutIntro": "The March Group is a thematic venture firm backing exponential technology platforms for human and planetary health, and a new food paradigm. We work closely with a world-class ecosystem anchored in the UC system to find and support founders early.",
+    "aboutTeamLink": "Meet the team",
+    "portalNav": "Portal",
+    "resourcesPage": "Resources",
+    "resourcesIntro": "News, research and perspective from The March Group and our portfolio.",
+    "careersPage": "Careers",
+    "careersIntro": "Open roles across The March Group portfolio. Each company hires directly -- follow the link through to apply.",
+    "portalPage": "Founder & LP Portal",
+    "portalIntro": "A private space for portfolio founders and limited partners to access reporting, resources and the team directly.",
+    "portalFounderTitle": "For founders",
+    "portalFounderText": "Quarterly reporting templates, introductions, and the resource library in one place.",
+    "portalLPTitle": "For limited partners",
+    "portalLPText": "Fund reporting, capital call notices and portfolio updates.",
+    "portalNote": "This portal is a design preview. Live founder and LP accounts require a backend integration -- ask us and we'll scope it.",
+    "allCategories": "All",
+    "searchPlaceholder": "Search portfolio",
+    "resourcesTabs": ["News", "Reports", "Podcasts"],
+    "comingSoon": "More coming soon."
   },
   "themes": [
     {
@@ -174,65 +198,76 @@
       }
     ]
   },
+  "portfolioCategories": ["Precision Nutrition", "Intelligent Health", "Food & Medicine", "Platform & Data"],
   "portfolio": [
     {
       "name": "Engage3",
       "url": "https://www.engage3.com/",
       "media": "https://www.google.com/s2/favicons?domain=engage3.com&sz=256",
+      "category": "Platform & Data",
       "note": ""
     },
     {
       "name": "Digestiva / Amplifye",
       "url": "https://www.digestiva.com/",
       "media": "https://www.google.com/s2/favicons?domain=digestiva.com&sz=256",
+      "category": "Precision Nutrition",
       "note": ""
     },
     {
       "name": "Rivalz",
       "url": "https://rivalzsnacks.com/",
       "media": "https://www.google.com/s2/favicons?domain=rivalzsnacks.com&sz=256",
+      "category": "Food & Medicine",
       "note": ""
     },
     {
       "name": "ZeroAvia",
       "url": "https://zeroavia.com/",
       "media": "https://www.google.com/s2/favicons?domain=zeroavia.com&sz=256",
+      "category": "Platform & Data",
       "note": ""
     },
     {
       "name": "VinZymes",
       "url": "https://vinzymes.com/",
       "media": "https://www.google.com/s2/favicons?domain=vinzymes.com&sz=256",
+      "category": "Precision Nutrition",
       "note": ""
     },
     {
       "name": "EvodiaBio",
       "url": "https://evodiabio.com/",
       "media": "https://www.google.com/s2/favicons?domain=evodiabio.com&sz=256",
+      "category": "Food & Medicine",
       "note": ""
     },
     {
       "name": "Number8Bio",
       "url": "https://www.number8.bio/",
       "media": "https://www.google.com/s2/favicons?domain=number8.bio&sz=256",
+      "category": "Intelligent Health",
       "note": ""
     },
     {
       "name": "Pharm to Food",
       "url": "https://www.pharmtofood.com/",
       "media": "https://www.google.com/s2/favicons?domain=pharmtofood.com&sz=256",
+      "category": "Food & Medicine",
       "note": ""
     },
     {
       "name": "ThriveSpan",
       "url": "https://www.marchgp.com/portfolio",
       "media": "https://static.wixstatic.com/media/9c3d55_7c0166fba7474653b8321ef4bafac54c~mv2.webp/v1/fit/w_700,h_700,q_90,enc_avif,quality_auto/9c3d55_7c0166fba7474653b8321ef4bafac54c~mv2.webp",
+      "category": "Intelligent Health",
       "note": ""
     },
     {
       "name": "SinewUs",
       "url": "https://sinewus.com/",
       "media": "https://www.google.com/s2/favicons?domain=sinewus.com&sz=256",
+      "category": "Intelligent Health",
       "note": ""
     }
   ],
