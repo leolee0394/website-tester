@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<title>The March Group</title>
+<meta name="description" content="The March Group is backing exponential technology platforms for human and planetary health, and a new food paradigm.">
+</head>
+<body>
+<header class="bar">
+  <a class="brand" href="#top">The March Group</a>
+  <nav aria-label="Primary">
+    <a href="#team">Team</a>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#what-we-do">What we do</a>
+    <a href="#about">About</a>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <p id="thesis"></p>
+  </section>
+
+  <section id="what-we-do">
+    <h2>What we do</h2>
+    <div id="themes-list"></div>
+  </section>
+
+  <section id="portfolio">
+    <h2>Portfolio</h2>
+    <ul id="portfolio-list" class="plain-list"></ul>
+  </section>
+
+  <section id="team">
+    <h2>Team</h2>
+    <ul id="team-list" class="plain-list"></ul>
+  </section>
+
+  <section id="about">
+    <h2>About</h2>
+    <p id="about-copy"></p>
+    <dl id="about-stats" class="stat-line"></dl>
+    <h3>News</h3>
+    <ul id="news-list" class="plain-list"></ul>
+    <p id="contact-line"></p>
+  </section>
+</main>
+
+<footer>
+  <p id="footer-line"></p>
+</footer>
+
+<script>
+fetch('site.json').then(r => r.json()).then(d => {
+  document.getElementById('thesis').textContent = d.hero.headline + ' ' + d.hero.sub;
+
+  const themes = document.getElementById('themes-list');
+  d.themes.forEach(t => {
+    const p = document.createElement('p');
+    p.innerHTML = '<strong>' + t.title + '.</strong> ' + t.text;
+    themes.appendChild(p);
+  });
+
+  const pf = document.getElementById('portfolio-list');
+  d.portfolio.forEach(p => {
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.href = p.url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = p.name;
+    li.appendChild(a);
+    pf.appendChild(li);
+  });
+
+  const team = document.getElementById('team-list');
+  d.people.forEach(p => {
+    const li = document.createElement('li');
+    li.textContent = p.name;
+    team.appendChild(li);
+  });
+
+  document.getElementById('about-copy').textContent = d.sections.ecosystem;
+
+  const stats = document.getElementById('about-stats');
+  d.stats.forEach(s => {
+    const dt = document.createElement('dt'); dt.textContent = (s.prefix || '') + s.number + (s.suffix || '');
+    const dd = document.createElement('dd'); dd.textContent = s.label;
+    stats.appendChild(dt); stats.appendChild(dd);
+  });
+
+  const news = document.getElementById('news-list');
+  d.news.forEach(n => {
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.href = n.url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = n.title;
+    li.appendChild(a);
+    news.appendChild(li);
+  });
+
+  document.getElementById('contact-line').innerHTML =
+    'Write to us at <a href="mailto:' + d.contact.deals + '">' + d.contact.deals + '</a>.';
+
+  document.getElementById('footer-line').textContent = d.site.name + '. ' + d.contact.press;
+}).catch(e => {
+  document.body.insertAdjacentHTML('afterbegin', '<p style="padding:40px">Could not load site.json. Serve this folder over http instead of opening the file directly.</p>');
+  console.error(e);
+});
+</script>
+</body>
+</html>
