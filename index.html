@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<title>The March Group</title>
+<meta name="description" content="The March Group is backing exponential technology platforms for human and planetary health, and a new food paradigm.">
+</head>
+<body>
+<header class="bar">
+  <a class="brand" href="#top">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13V3h18v18h-8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="miter"/><path d="M3 19h6" fill="none" stroke="var(--orange)" stroke-width="2.2"/></svg>
+    The March Group
+  </a>
+  <nav aria-label="Primary">
+    <a href="#team">Team</a>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#what-we-do">What we do</a>
+    <a href="#about">About</a>
+    <a class="nav-cta" href="mailto:investment@marchfund.com">Contact</a>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="frame" aria-hidden="true"></div>
+    <p class="eyebrow">Thematic venture capital</p>
+    <h1 id="thesis"></h1>
+    <p class="lede" id="lede"></p>
+  </section>
+
+  <section id="what-we-do">
+    <div class="section-head"><span class="tag">01</span><h2>What we do</h2></div>
+    <div id="themes-list" class="themes"></div>
+  </section>
+
+  <section id="portfolio">
+    <div class="section-head"><span class="tag">02</span><h2>Portfolio</h2></div>
+    <div id="portfolio-list" class="pfgrid"></div>
+  </section>
+
+  <section id="team">
+    <div class="section-head"><span class="tag">03</span><h2>Team</h2></div>
+    <div id="team-list" class="tgrid"></div>
+  </section>
+
+  <section id="about">
+    <div class="section-head"><span class="tag">04</span><h2>About</h2></div>
+    <p class="lede" id="about-copy"></p>
+    <dl id="about-stats" class="stats"></dl>
+    <h3>Recent news</h3>
+    <ul id="news-list" class="plain-list"></ul>
+  </section>
+
+  <section class="close">
+    <h2>Get in touch.</h2>
+    <p id="contact-line"></p>
+  </section>
+</main>
+
+<footer>
+  <p id="footer-line"></p>
+</footer>
+
+<script>
+fetch('site.json').then(r => r.json()).then(d => {
+  document.getElementById('thesis').textContent = d.hero.headline;
+  document.getElementById('lede').textContent = d.hero.sub;
+
+  const themes = document.getElementById('themes-list');
+  d.themes.forEach((t, i) => {
+    const div = document.createElement('div');
+    div.className = 'theme';
+    div.innerHTML = '<span class="tnum">0' + (i + 1) + '</span><h3>' + t.title + '</h3><p>' + t.text + '</p>';
+    themes.appendChild(div);
+  });
+
+  const pf = document.getElementById('portfolio-list');
+  d.portfolio.forEach(p => {
+    const a = document.createElement('a');
+    a.href = p.url; a.target = '_blank'; a.rel = 'noopener'; a.className = 'pcard';
+    a.innerHTML = '<img src="' + p.media + '" alt="" loading="lazy"><span>' + p.name + '</span>';
+    pf.appendChild(a);
+  });
+
+  const team = document.getElementById('team-list');
+  d.people.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'person';
+    div.innerHTML = '<img src="' + p.photo + '" alt="" loading="lazy"><h3>' + p.name + '</h3>' + (p.role ? '<small>' + p.role + '</small>' : '');
+    team.appendChild(div);
+  });
+
+  document.getElementById('about-copy').textContent = d.sections.ecosystem;
+
+  const stats = document.getElementById('about-stats');
+  d.stats.forEach(s => {
+    const dt = document.createElement('dt'); dt.textContent = (s.prefix || '') + s.number + (s.suffix || '');
+    const dd = document.createElement('dd'); dd.textContent = s.label;
+    stats.appendChild(dt); stats.appendChild(dd);
+  });
+
+  const news = document.getElementById('news-list');
+  d.news.forEach(n => {
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.href = n.url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = n.title;
+    li.appendChild(a);
+    news.appendChild(li);
+  });
+
+  document.getElementById('contact-line').innerHTML =
+    'Investment inquiries: <a href="mailto:' + d.contact.deals + '">' + d.contact.deals + '</a><br>Press and partnerships: <a href="mailto:' + d.contact.press + '">' + d.contact.press + '</a>';
+
+  document.getElementById('footer-line').textContent = d.site.name + ' \u00b7 ' + new Date().getFullYear();
+}).catch(e => {
+  document.body.insertAdjacentHTML('afterbegin', '<p style="padding:40px">Could not load site.json. Serve this folder over http instead of opening the file directly.</p>');
+  console.error(e);
+});
+</script>
+</body>
+</html>
