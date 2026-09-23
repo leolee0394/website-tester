@@ -5,109 +5,59 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<title>The March Group</title>
+<title>Thematic VC | The March Group</title>
 <meta name="description" content="The March Group is backing exponential technology platforms for human and planetary health, and a new food paradigm.">
+<script>if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('motion');</script>
 </head>
-<body>
-<header class="bar">
-  <a class="brand" href="#top">The March Group</a>
-  <nav aria-label="Primary">
-    <a href="#team">Team</a>
-    <a href="#portfolio">Portfolio</a>
-    <a href="#what-we-do">What we do</a>
-    <a href="#about">About</a>
-  </nav>
-</header>
+<body data-page="home" id="top">
+<a class="skip" href="#main">Skip to content</a>
+<header id="site-header" class="site-header"></header>
+<main id="main">
+  <div class="journal wrap">
+    <nav class="contents" id="contents" aria-label="Sections on this page"></nav>
+    <div class="journal-body">
 
-<main id="top">
-  <section class="hero">
-    <p id="thesis"></p>
-  </section>
+      <section class="hero grid-tint">
+        <p class="eyebrow" data-text="hero.splitLine"></p>
+        <h1 data-text="hero.headline"></h1>
+        <p class="lede" data-text="hero.sub"></p>
+        <p><a class="link" href="people.html" data-text="sections.teamLink"></a></p>
+      </section>
 
-  <section id="what-we-do">
-    <h2>What we do</h2>
-    <div id="themes-list"></div>
-  </section>
+      <section class="sec" id="themes">
+        <div class="panel-head"><span class="tag">01</span><h2 class="sec-h" data-text="sections.themes"></h2></div>
+        <div id="themes-list"></div>
+      </section>
 
-  <section id="portfolio">
-    <h2>Portfolio</h2>
-    <ul id="portfolio-list" class="plain-list"></ul>
-  </section>
+      <section class="sec panel grid-tint" id="numbers">
+        <div class="panel-head"><span class="tag">02</span><h2 class="sec-h" data-text="sections.numbers"></h2></div>
+        <div class="stats" id="stats"></div>
+      </section>
 
-  <section id="team">
-    <h2>Team</h2>
-    <ul id="team-list" class="plain-list"></ul>
-  </section>
+      <section class="sec" id="portfolio">
+        <div class="sec-head"><div class="panel-head"><span class="tag">03</span><h2 class="sec-h" data-text="sections.portfolio"></h2></div><a href="portfolio.html" data-text="sections.portfolioLink"></a></div>
+        <div class="pfgrid" id="pfgrid"></div>
+      </section>
 
-  <section id="about">
-    <h2>About</h2>
-    <p id="about-copy"></p>
-    <dl id="about-stats" class="stat-line"></dl>
-    <h3>News</h3>
-    <ul id="news-list" class="plain-list"></ul>
-    <p id="contact-line"></p>
-  </section>
+      <section class="sec" id="news">
+        <div class="sec-head"><div class="panel-head"><span class="tag">04</span><h2 class="sec-h" data-text="sections.news"></h2></div><a href="news.html" data-text="sections.newsLink"></a></div>
+        <div class="nlist" id="news-list"></div>
+      </section>
+
+      <section class="close">
+        <h2 data-text="sections.contact"></h2>
+        <p data-text="sections.contactSub"></p>
+        <p><a class="btn" href="contact.html" data-text="sections.closeButton"></a></p>
+      </section>
+
+    </div>
+  </div>
+  <noscript><p class="wrap">This site needs JavaScript to show its content.</p></noscript>
 </main>
-
-<footer>
-  <p id="footer-line"></p>
-</footer>
-
-<script>
-fetch('site.json').then(r => r.json()).then(d => {
-  document.getElementById('thesis').textContent = d.hero.headline + ' ' + d.hero.sub;
-
-  const themes = document.getElementById('themes-list');
-  d.themes.forEach(t => {
-    const p = document.createElement('p');
-    p.innerHTML = '<strong>' + t.title + '.</strong> ' + t.text;
-    themes.appendChild(p);
-  });
-
-  const pf = document.getElementById('portfolio-list');
-  d.portfolio.forEach(p => {
-    const li = document.createElement('li');
-    const a = document.createElement('a');
-    a.href = p.url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = p.name;
-    li.appendChild(a);
-    pf.appendChild(li);
-  });
-
-  const team = document.getElementById('team-list');
-  d.people.forEach(p => {
-    const li = document.createElement('li');
-    li.textContent = p.name;
-    team.appendChild(li);
-  });
-
-  document.getElementById('about-copy').textContent = d.sections.ecosystem;
-
-  const stats = document.getElementById('about-stats');
-  d.stats.forEach(s => {
-    const dt = document.createElement('dt'); dt.textContent = (s.prefix || '') + s.number + (s.suffix || '');
-    const dd = document.createElement('dd'); dd.textContent = s.label;
-    stats.appendChild(dt); stats.appendChild(dd);
-  });
-
-  const news = document.getElementById('news-list');
-  d.news.forEach(n => {
-    const li = document.createElement('li');
-    const a = document.createElement('a');
-    a.href = n.url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = n.title;
-    li.appendChild(a);
-    news.appendChild(li);
-  });
-
-  document.getElementById('contact-line').innerHTML =
-    'Write to us at <a href="mailto:' + d.contact.deals + '">' + d.contact.deals + '</a>.';
-
-  document.getElementById('footer-line').textContent = d.site.name + '. ' + d.contact.press;
-}).catch(e => {
-  document.body.insertAdjacentHTML('afterbegin', '<p style="padding:40px">Could not load site.json. Serve this folder over http instead of opening the file directly.</p>');
-  console.error(e);
-});
-</script>
+<footer id="site-footer"></footer>
+<script src="render.js"></script>
+<script src="motion.js"></script>
 </body>
 </html>
