@@ -35,6 +35,20 @@ a { color: inherit; }
 .bar nav a:hover { border-color: var(--orange); }
 .nav-cta { color: var(--orange) !important; font-weight: 600; }
 
+/* pure-CSS dropdown, no JS */
+.dropdown { position: relative; }
+.dropdown-menu {
+  position: absolute; top: 100%; left: 0; margin-top: 10px; min-width: 150px;
+  background: var(--paper); border: 1px solid var(--rule); box-shadow: 0 8px 20px rgba(14,44,62,.08);
+  display: flex; flex-direction: column; padding: 6px 0;
+  opacity: 0; visibility: hidden; transform: translateY(-4px);
+  transition: opacity .15s ease, transform .15s ease;
+}
+.dropdown:hover .dropdown-menu,
+.dropdown:focus-within .dropdown-menu { opacity: 1; visibility: visible; transform: none; }
+.dropdown-menu a { padding: 9px 16px; border-bottom: none !important; }
+.dropdown-menu a:hover { background: rgba(238,148,54,.08); color: var(--orange); }
+
 main { max-width: 880px; margin: 0 auto; }
 
 /* hero */
@@ -85,6 +99,13 @@ h3 { font-size: .98rem; font-weight: 600; margin: 0 0 4px; }
 .plain-list a { text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
 .plain-list a:hover { color: var(--orange); text-decoration-color: var(--orange); }
 
+/* approach: News, Ecosystem, About grouped under one section */
+.approach-block { padding: 32px 0; border-top: 1px solid var(--rule); }
+.approach-block:first-of-type { padding-top: 0; border-top: none; }
+.block-h { font-family: var(--serif); font-weight: 600; font-size: 1.15rem; margin: 0 0 18px; }
+.eco-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 8px; }
+.eco-cols h4 { font-size: .84rem; font-weight: 600; margin: 0 0 10px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: .04em; }
+
 /* close */
 .close { text-align: left; }
 .close h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); margin-bottom: 12px; }
@@ -97,5 +118,8 @@ footer { max-width: 880px; margin: 0 auto; padding: 32px clamp(20px, 6vw, 64px) 
   .themes, .tgrid { grid-template-columns: repeat(2, 1fr); }
   .pfgrid { grid-template-columns: repeat(2, 1fr); }
   .stats { grid-template-columns: repeat(2, 1fr); }
+  .eco-cols { grid-template-columns: 1fr; }
   .bar nav { gap: 14px; }
+  .dropdown-menu { position: static; opacity: 1; visibility: visible; transform: none; box-shadow: none; border: none; margin-top: 4px; padding-left: 8px; display: none; }
+  .dropdown:focus-within .dropdown-menu, .dropdown:hover .dropdown-menu { display: flex; }
 }

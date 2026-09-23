@@ -19,8 +19,14 @@
   <nav aria-label="Primary">
     <a href="#team">Team</a>
     <a href="#portfolio">Portfolio</a>
-    <a href="#what-we-do">What we do</a>
-    <a href="#about">About</a>
+    <div class="dropdown">
+      <a href="#approach" aria-haspopup="true">Approach</a>
+      <div class="dropdown-menu">
+        <a href="#news">News</a>
+        <a href="#ecosystem">Ecosystem</a>
+        <a href="#about">About</a>
+      </div>
+    </div>
     <a class="nav-cta" href="mailto:investment@marchfund.com">Contact</a>
   </nav>
 </header>
@@ -33,8 +39,8 @@
     <p class="lede" id="lede"></p>
   </section>
 
-  <section id="what-we-do">
-    <div class="section-head"><span class="tag">01</span><h2>What we do</h2></div>
+  <section id="areas-of-focus">
+    <div class="section-head"><span class="tag">01</span><h2 id="focus-heading"></h2></div>
     <div id="themes-list" class="themes"></div>
   </section>
 
@@ -48,12 +54,34 @@
     <div id="team-list" class="tgrid"></div>
   </section>
 
-  <section id="about">
-    <div class="section-head"><span class="tag">04</span><h2>About</h2></div>
-    <p class="lede" id="about-copy"></p>
-    <dl id="about-stats" class="stats"></dl>
-    <h3>Recent news</h3>
-    <ul id="news-list" class="plain-list"></ul>
+  <section id="approach">
+    <div class="section-head"><span class="tag">04</span><h2>Approach</h2></div>
+
+    <div id="news" class="approach-block">
+      <h3 class="block-h">News</h3>
+      <ul id="news-list" class="plain-list"></ul>
+    </div>
+
+    <div id="ecosystem" class="approach-block">
+      <h3 class="block-h">Ecosystem</h3>
+      <p class="lede" id="ecosystem-copy"></p>
+      <div class="eco-cols">
+        <div>
+          <h4>Anchor institutions</h4>
+          <ul id="anchors-list" class="plain-list"></ul>
+        </div>
+        <div>
+          <h4>Partners and collaborators</h4>
+          <ul id="partners-list" class="plain-list"></ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="about" class="approach-block">
+      <h3 class="block-h">About</h3>
+      <p class="lede" id="about-copy"></p>
+      <dl id="about-stats" class="stats"></dl>
+    </div>
   </section>
 
   <section class="close">
@@ -70,6 +98,7 @@
 fetch('site.json').then(r => r.json()).then(d => {
   document.getElementById('thesis').textContent = d.hero.headline;
   document.getElementById('lede').textContent = d.hero.sub;
+  document.getElementById('focus-heading').textContent = d.sections.themes;
 
   const themes = document.getElementById('themes-list');
   d.themes.forEach((t, i) => {
@@ -95,7 +124,26 @@ fetch('site.json').then(r => r.json()).then(d => {
     team.appendChild(div);
   });
 
-  document.getElementById('about-copy').textContent = d.sections.ecosystem;
+  document.getElementById('about-copy').textContent = d.site.description;
+  document.getElementById('ecosystem-copy').textContent = d.sections.ecosystem;
+
+  const anchors = document.getElementById('anchors-list');
+  d.ecosystem.anchors.forEach(x => {
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.href = x.url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = x.name;
+    li.appendChild(a);
+    anchors.appendChild(li);
+  });
+
+  const partners = document.getElementById('partners-list');
+  d.ecosystem.partners.forEach(x => {
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.href = x.url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = x.name;
+    li.appendChild(a);
+    partners.appendChild(li);
+  });
 
   const stats = document.getElementById('about-stats');
   d.stats.forEach(s => {
