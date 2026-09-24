@@ -95,3 +95,143 @@ if(canvas){
   window.addEventListener('resize', resize, {passive:true});
   if(!reduceMotion){ init(); tick(); } else { resize(); }
 }
+
+// ---- custom cursor + magnetic buttons + word reveal ----
+const cxDot = document.querySelector('.cx-dot');
+const cxRing = document.querySelector('.cx-ring');
+const fine = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+const reduceMotionCX = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if(cxDot && cxRing && fine && !reduceMotionCX){
+  let mx=0, my=0, rx=0, ry=0;
+  window.addEventListener('mousemove', (e) => {
+    mx = e.clientX; my = e.clientY;
+    cxDot.style.transform = `translate(${mx}px, ${my}px) translate(-50%,-50%)`;
+  }, {passive:true});
+  function ringLoop(){
+    rx += (mx - rx) * 0.18;
+    ry += (my - ry) * 0.18;
+    cxRing.style.transform = `translate(${rx}px, ${ry}px) translate(-50%,-50%)`;
+    requestAnimationFrame(ringLoop);
+  }
+  ringLoop();
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => cxRing.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cxRing.classList.remove('hover'));
+  });
+}
+
+// magnetic buttons
+if(fine && !reduceMotionCX){
+  document.querySelectorAll('.magnetic').forEach(el => {
+    el.addEventListener('mousemove', (e) => {
+      const r = el.getBoundingClientRect();
+      const relX = e.clientX - r.left - r.width/2;
+      const relY = e.clientY - r.top - r.height/2;
+      el.style.transform = `translate(${relX*0.25}px, ${relY*0.35}px)`;
+    });
+    el.addEventListener('mouseleave', () => { el.style.transform = 'translate(0,0)'; });
+  });
+}
+
+// staggered reveal for pre-split hero words (markup already wraps each word
+// in <span class="reveal-word"><span>Word</span></span> so <br> / gradient
+// spans inside the headline survive untouched)
+document.querySelectorAll('.reveal-word').forEach((w, i) => {
+  setTimeout(() => w.classList.add('in'), 120 + i * 65);
+});
+
+// ---- round 2 ----
+
+// inertial (eased) scroll — desktop wheel only, native scroll everywhere else
+if(fine && !reduceMotionCX){
+  let targetY = window.scrollY, curY = window.scrollY, ticking = false;
+  const maxY = () => document.documentElement.scrollHeight - window.innerHeight;
+  window.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    targetY = Math.min(Math.max(targetY + e.deltaY, 0), maxY());
+    if(!ticking){ ticking = true; requestAnimationFrame(smoothScrollTick); }
+  }, {passive:false});
+  function smoothScrollTick(){
+    curY += (targetY - curY) * 0.11;
+    if(Math.abs(targetY - curY) < 0.5) curY = targetY; else requestAnimationFrame(smoothScrollTick);
+    window.scrollTo(0, curY);
+    if(curY === targetY) ticking = false;
+  }
+  window.addEventListener('resize', () => { targetY = Math.min(targetY, maxY()); }, {passive:true});
+}
+
+// hero parallax — headline and particle field drift at different rates on scroll
+const heroInner = document.querySelector('.hero-inner');
+const heroCanvas = document.getElementById('particles');
+if((heroInner || heroCanvas) && !reduceMotionCX){
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    if(y < window.innerHeight){
+      if(heroInner) heroInner.style.transform = `translateY(${y * 0.25}px)`;
+      if(heroCanvas) heroCanvas.style.transform = `translateY(${y * 0.12}px)`;
+    }
+  }, {passive:true});
+}
+
+// 3D tilt on portfolio cards / bento tiles
+if(fine && !reduceMotionCX){
+  document.querySelectorAll('.pcard, .b-tile').forEach(el => {
+    el.classList.add('tilt');
+    el.addEventListener('mousemove', (e) => {
+      const r = el.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width - 0.5;
+      const py = (e.clientY - r.top) / r.height - 0.5;
+      el.style.transform = `perspective(600px) rotateX(${-py*8}deg) rotateY(${px*8}deg) translateZ(4px)`;
+    });
+    el.addEventListener('mouseleave', () => { el.style.transform = ''; });
+  });
+}
+
+// cursor hover label (e.g. "View") on elements with data-cursor
+if(cxRing && fine && !reduceMotionCX){
+  const label = document.createElement('span');
+  label.className = 'cx-label';
+  cxRing.appendChild(label);
+  document.querySelectorAll('[data-cursor]').forEach(el => {
+    el.addEventListener('mouseenter', () => { label.textContent = el.dataset.cursor; cxRing.classList.add('label'); });
+    el.addEventListener('mouseleave', () => { cxRing.classList.remove('label'); });
+  });
+}
+
+// text scramble on hover — nav links, dropdown buttons, portfolio card titles
+if(fine && !reduceMotionCX){
+  const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  function scramble(el){
+    if(el.dataset.scrambling) return;
+    el.dataset.scrambling = '1';
+    const original = el.textContent;
+    const len = original.length;
+    let frame = 0;
+    const totalFrames = 14;
+    const iv = setInterval(() => {
+      frame++;
+      el.textContent = original.split('').map((ch, i) => {
+        if(ch === ' ') return ' ';
+        const reveal = frame / totalFrames * len;
+        return i < reveal ? original[i] : CHARS[Math.floor(Math.random()*CHARS.length)];
+      }).join('');
+      if(frame >= totalFrames){ clearInterval(iv); el.textContent = original; delete el.dataset.scrambling; }
+    }, 28);
+  }
+  document.querySelectorAll('.navlinks > a, .navdrop-btn .lbl, .pcard h4').forEach(el => {
+    el.addEventListener('mouseenter', () => scramble(el));
+  });
+}
+
+// preloader
+const preloader = document.getElementById('preloader');
+if(preloader){
+  const numEl = preloader.querySelector('.pl-num span');
+  let n = 0;
+  const iv = setInterval(() => {
+    n = Math.min(100, n + Math.ceil(Math.random()*18));
+    if(numEl) numEl.textContent = n;
+    if(n >= 100){ clearInterval(iv); setTimeout(() => preloader.classList.add('done'), 250); }
+  }, 90);
+}
