@@ -140,3 +140,28 @@ footer{border-top:1px solid var(--line); padding:60px 0 calc(40px + env(safe-are
   .marquee{animation:none;}
   .pulse-dot{animation:none;}
 }
+
+/* nav dropdowns */
+.navdrop{position:relative;}
+.navdrop-btn{background:none; border:none; font:inherit; font-size:14px; color:var(--muted); cursor:pointer; display:flex; align-items:center; gap:6px; padding:0;}
+.navdrop-btn:hover, .navdrop-btn.active{color:var(--text);}
+.navdrop-btn .car{width:6px; height:6px; border-right:1.5px solid currentColor; border-bottom:1.5px solid currentColor; transform:rotate(45deg); margin-top:-4px;}
+.navdrop-menu{position:absolute; top:calc(100% + 20px); left:50%; transform:translateX(-50%) translateY(6px); background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:8px; min-width:172px; opacity:0; pointer-events:none; transition:opacity .2s, transform .2s; box-shadow:0 20px 40px -12px rgba(0,0,0,0.5);}
+.navdrop:hover .navdrop-menu, .navdrop.open .navdrop-menu{opacity:1; pointer-events:auto; transform:translateX(-50%) translateY(0);}
+.navdrop-menu a{display:block; padding:9px 12px; border-radius:8px; font-size:13.5px; color:var(--text); opacity:0.85;}
+.navdrop-menu a:hover{opacity:1; background:rgba(240,146,58,0.08); color:var(--cyan);}
+
+/* bento squares — videos & perspective */
+.bento{display:grid; grid-template-columns:repeat(4,1fr); grid-auto-rows:140px; grid-auto-flow:dense; gap:16px;}
+.b-lg{grid-column:span 2; grid-row:span 2;}
+.b-sm{grid-column:span 1; grid-row:span 1;}
+.b-tile{border:1px dashed var(--line); border-radius:16px; background:var(--surface); display:flex; align-items:center; justify-content:center; transition:border-color .3s;}
+.b-tile:hover{border-color:rgba(240,146,58,0.4);}
+.b-tile span{font-size:11px; letter-spacing:0.02em; color:var(--muted); border:1px dashed var(--line); padding:5px 10px; border-radius:100px;}
+@media(max-width:860px){
+  .bento{grid-template-columns:repeat(2,1fr);}
+  .b-lg{grid-column:span 2; grid-row:span 1; aspect-ratio:2/1;}
+  .b-sm{aspect-ratio:1;}
+  .navdrop-menu{left:0; transform:translateY(6px);}
+  .navdrop:hover .navdrop-menu, .navdrop.open .navdrop-menu{transform:translateY(0);}
+}

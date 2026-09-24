@@ -16,6 +16,19 @@ window.addEventListener('scroll', () => {
   railHideTimer = setTimeout(() => { if(window.scrollY <= 20) rail.classList.remove('show'); }, 1200);
 }, {passive:true});
 
+// nav dropdowns (click to support touch; CSS handles hover)
+document.querySelectorAll('.navdrop-btn').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const d = btn.closest('.navdrop');
+    document.querySelectorAll('.navdrop.open').forEach(o => { if(o !== d) o.classList.remove('open'); });
+    d.classList.toggle('open');
+  });
+});
+document.addEventListener('click', () => {
+  document.querySelectorAll('.navdrop.open').forEach(o => o.classList.remove('open'));
+});
+
 // reveal on scroll
 const io = new IntersectionObserver((entries) => {
   entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
