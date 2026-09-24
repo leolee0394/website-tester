@@ -1,62 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The March Group — Thematic VC</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..680&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<title>Thematic VC | The March Group</title>
-<meta name="description" content="The March Group is backing exponential technology platforms for human and planetary health, and a new food paradigm.">
-<script>if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('motion');</script>
 </head>
-<body data-page="home" id="top">
-<a class="skip" href="#main">Skip to content</a>
-<header id="site-header" class="site-header"></header>
-<main id="main">
-  <div class="journal wrap">
-    <div class="journal-body">
+<body>
 
-      <section class="hero">
-        <p class="eyebrow" data-text="hero.splitLine"></p>
-        <h1 data-text="hero.headline"></h1>
-        <p class="lede" data-text="hero.sub"></p>
-        <p><a class="link" href="people.html" data-text="sections.teamLink"></a></p>
-      </section>
+<div class="scroll-rail" id="scrollRail"><div class="fill" id="railFill"></div><div class="marker" id="railMarker"></div></div>
 
-      <section class="sec" id="themes">
-        <div class="panel-head"><span class="tag">01</span><h2 class="sec-h" data-text="sections.themes"></h2></div>
-        <div id="themes-list"></div>
-      </section>
+<header id="siteHeader">
+  <div class="wrap">
+    <nav>
+      <div class="logo">THE <span>MARCH</span> GROUP</div>
+      <div class="navlinks">
+        <a href="index.html" class="active">Thesis</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="team.html">Team</a>
+        <a href="ecosystem.html">Ecosystem</a>
+      </div>
+      <a href="ecosystem.html#contact" class="navcta">Get in touch</a>
+    </nav>
+  </div>
+</header>
 
-      <section class="sec panel grid-tint" id="numbers">
-        <div class="panel-head"><span class="tag">02</span><h2 class="sec-h" data-text="sections.numbers"></h2></div>
-        <div class="stats" id="stats"></div>
-      </section>
-
-      <section class="sec" id="portfolio">
-        <div class="sec-head"><div class="panel-head"><span class="tag">03</span><h2 class="sec-h" data-text="sections.portfolio"></h2></div><a href="portfolio.html" data-text="sections.portfolioLink"></a></div>
-        <div class="pfgrid" id="pfgrid"></div>
-      </section>
-
-      <section class="sec" id="news">
-        <div class="sec-head"><div class="panel-head"><span class="tag">04</span><h2 class="sec-h" data-text="sections.news"></h2></div><a href="resources.html" data-text="sections.newsLink"></a></div>
-        <div class="nlist" id="news-list"></div>
-      </section>
-
-      <section class="close">
-        <h2 data-text="sections.contact"></h2>
-        <p data-text="sections.contactSub"></p>
-        <p><a class="btn" href="contact.html" data-text="sections.closeButton"></a></p>
-      </section>
-
+<section class="hero">
+  <canvas id="particles"></canvas>
+  <div class="hero-grid"></div>
+  <div class="wrap hero-inner">
+    <h1>Backing the platforms that<br>rewrite <span class="g">human &amp; planetary</span><br>health.</h1>
+    <p>The March Group invests in exponential technologies reshaping food, medicine, and the systems that sustain life — from precision nutrition to intelligent therapeutics.</p>
+    <div class="hero-cta">
+      <a href="portfolio.html" class="btn btn-primary">View portfolio</a>
     </div>
   </div>
-  <noscript><p class="wrap">This site needs JavaScript to show its content.</p></noscript>
-</main>
-<footer id="site-footer"></footer>
-<script src="render.js"></script>
-<script src="motion.js"></script>
+</section>
+
+<section id="thesis">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">The thesis</div>
+      <h2>A new paradigm for food and medicine, funded at the frontier.</h2>
+      <p>We back founders building the exponential technologies that will define the next century of human and planetary health — and we bring a global research ecosystem with them.</p>
+    </div>
+    <div class="pillars reveal">
+      <div class="pillar">
+        <div class="ico">🧬</div>
+        <h3>Precision Nutrition</h3>
+        <p>Platforms that personalize what we eat to individual biology, from diagnostics to formulation.</p>
+      </div>
+      <div class="pillar">
+        <div class="ico">🧠</div>
+        <h3>Intelligent Health</h3>
+        <p>AI-native tools compressing the distance between data, diagnosis, and treatment.</p>
+      </div>
+      <div class="pillar">
+        <div class="ico">🌱</div>
+        <h3>Food &amp; Medicine</h3>
+        <p>Novel biology and bioprocesses redefining how food and therapeutics are made.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-sec">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker" style="justify-content:center; display:flex; align-items:center; gap:10px;"><span class="pulse-dot"></span> Building something exponential?</div>
+      <h2>The strongest founders in this space already know where to find us.</h2>
+      <div class="hero-cta" style="justify-content:center;">
+        <a href="mailto:investment@marchfund.com" class="btn btn-primary">investment@marchfund.com</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div class="fcol"><div class="logo">THE <span>MARCH</span> GROUP</div></div>
+      <div class="fcol">
+        <h5>Explore</h5>
+        <a href="index.html">Thesis</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="team.html">Team</a>
+        <a href="ecosystem.html">Ecosystem</a>
+      </div>
+      <div class="fcol">
+        <h5>Contact</h5>
+        <a href="mailto:contact@marchfund.com">contact@marchfund.com</a>
+        <a href="mailto:investment@marchfund.com">investment@marchfund.com</a>
+        <a href="https://www.linkedin.com/company/themarchgroup/" target="_blank">LinkedIn</a>
+      </div>
+    </div>
+    <div class="fbottom">
+      <span>© 2026 The March Group</span>
+      <span>Privacy Policy · Terms of Use</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>
